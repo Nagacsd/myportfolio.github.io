@@ -89,6 +89,43 @@
   .menu-toggle{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
   .menu-toggle span{width:22px; height:2px; background:var(--text); border-radius:2px;}
 
+  /* ===== OPEN-TO-WORK MARQUEE ===== */
+  .top-marquee{
+    position:relative; z-index:998;
+    background:var(--bg-soft);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    padding:0.65rem 0;
+  }
+  .top-marquee-track{
+    display:flex; width:max-content; white-space:nowrap;
+    animation:topMarqueeScroll 22s linear infinite;
+  }
+  .top-marquee-item{
+    display:flex; align-items:center; gap:0.7rem;
+    font-family:var(--mono); font-size:0.78rem; font-weight:500;
+    letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--text-dim); padding:0 1.6rem;
+  }
+  .top-marquee-item .status-dot{
+    width:7px; height:7px; border-radius:50%; background:#3ee06b;
+    box-shadow:0 0 8px rgba(62,224,107,0.8);
+    animation:statusPulse 1.6s ease-in-out infinite;
+    flex-shrink:0;
+  }
+  .top-marquee-item strong{
+    color:var(--text); font-weight:700;
+  }
+  .top-marquee-item.accent-item strong{
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .top-marquee-item .sep{color:var(--pink); font-size:0.7rem;}
+  @keyframes statusPulse{0%,100%{opacity:1; transform:scale(1);}50%{opacity:0.4; transform:scale(0.8);}}
+  @keyframes topMarqueeScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
   /* ===== HERO ===== */
   .hero{
     position:relative; z-index:1;
@@ -260,6 +297,33 @@
   .work-arrow{font-size:1.2rem; transition:transform .25s ease;}
   .work-row:hover .work-arrow{transform:translate(4px,-4px);}
 
+  /* ===== TECH PILLS ===== */
+  .work-meta-pills{
+    display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; justify-content:flex-end;
+  }
+  .tech-pill{
+    font-family:var(--mono); font-size:0.7rem; font-weight:700;
+    padding:0.32rem 0.7rem; border-radius:1rem; letter-spacing:0.02em;
+    white-space:nowrap; transition:transform .2s ease, filter .2s ease;
+  }
+  .tech-pill:hover{transform:translateY(-2px); filter:brightness(1.2);}
+
+  .tech-sql{color:#22d3ee; background:rgba(34,211,238,0.13); border:1px solid rgba(34,211,238,0.4);}
+  .tech-ssis{color:#fb923c; background:rgba(251,146,60,0.13); border:1px solid rgba(251,146,60,0.4);}
+  .tech-medallion{color:#a78bfa; background:rgba(167,139,250,0.13); border:1px solid rgba(167,139,250,0.4);}
+  .tech-powerbi{color:#fbbf24; background:rgba(251,191,36,0.13); border:1px solid rgba(251,191,36,0.4);}
+  .tech-dax{color:#34d399; background:rgba(52,211,153,0.13); border:1px solid rgba(52,211,153,0.4);}
+  .tech-datamodel{color:#f472b6; background:rgba(244,114,182,0.13); border:1px solid rgba(244,114,182,0.4);}
+  .tech-python{color:#60a5fa; background:rgba(96,165,250,0.13); border:1px solid rgba(96,165,250,0.4);}
+  .tech-postgres{color:#818cf8; background:rgba(129,140,248,0.13); border:1px solid rgba(129,140,248,0.4);}
+  .tech-js{color:#fde047; background:rgba(253,224,71,0.13); border:1px solid rgba(253,224,71,0.4);}
+
+  @media (max-width:640px){
+    .work-row{flex-direction:column; align-items:flex-start; gap:0.9rem;}
+    .work-left:last-child{width:100%; justify-content:space-between;}
+    .work-meta-pills{justify-content:flex-start;}
+  }
+
   /* ===== SKILLS ===== */
   .skills-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.4rem;}
   .skill-card{
@@ -349,6 +413,7 @@
     section{padding:3.5rem 0;}
     .hero-cta{flex-direction:column;}
     .btn{width:100%; justify-content:center;}
+    .top-marquee-item{font-size:0.7rem; padding:0 1.1rem;}
   }
 </style>
 </head>
@@ -368,6 +433,20 @@
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </nav>
 </header>
+
+<!-- OPEN TO WORK MARQUEE -->
+<div class="top-marquee" aria-hidden="false">
+  <div class="top-marquee-track">
+    <span class="top-marquee-item"><span class="status-dot"></span><strong>Open to Work</strong></span>
+    <span class="top-marquee-item"><span class="sep">✦</span>Data Analytics Fresher</span>
+    <span class="top-marquee-item accent-item"><span class="sep">✦</span><strong>Available for Internships &amp; Junior Roles</strong></span>
+    <span class="top-marquee-item"><span class="sep">✦</span>Let's Build Something With Data →</span>
+    <span class="top-marquee-item"><span class="status-dot"></span><strong>Open to Work</strong></span>
+    <span class="top-marquee-item"><span class="sep">✦</span>Data Analytics Fresher</span>
+    <span class="top-marquee-item accent-item"><span class="sep">✦</span><strong>Available for Internships &amp; Junior Roles</strong></span>
+    <span class="top-marquee-item"><span class="sep">✦</span>Let's Build Something With Data →</span>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -467,15 +546,36 @@
 
     <a href="#" class="work-row reveal">
       <div class="work-left"><span class="work-title">Enterprise Data Warehouse</span></div>
-      <div class="work-left"><span class="work-meta">SQL Server · SSIS · Medallion Architecture</span><span class="work-arrow">↗</span></div>
+      <div class="work-left">
+        <div class="work-meta-pills">
+          <span class="tech-pill tech-sql">SQL Server</span>
+          <span class="tech-pill tech-ssis">SSIS</span>
+          <span class="tech-pill tech-medallion">Medallion Architecture</span>
+        </div>
+        <span class="work-arrow">↗</span>
+      </div>
     </a>
     <a href="#" class="work-row reveal">
       <div class="work-left"><span class="work-tagbadge">40% faster</span><span class="work-title">Interactive Analytics Dashboard</span></div>
-      <div class="work-left"><span class="work-meta">Power BI · DAX · Data Modeling</span><span class="work-arrow">↗</span></div>
+      <div class="work-left">
+        <div class="work-meta-pills">
+          <span class="tech-pill tech-powerbi">Power BI</span>
+          <span class="tech-pill tech-dax">DAX</span>
+          <span class="tech-pill tech-datamodel">Data Modeling</span>
+        </div>
+        <span class="work-arrow">↗</span>
+      </div>
     </a>
     <a href="#" class="work-row reveal">
       <div class="work-left"><span class="work-title">Client Analytics Portal</span></div>
-      <div class="work-left"><span class="work-meta">Python · PostgreSQL · JavaScript</span><span class="work-arrow">↗</span></div>
+      <div class="work-left">
+        <div class="work-meta-pills">
+          <span class="tech-pill tech-python">Python</span>
+          <span class="tech-pill tech-postgres">PostgreSQL</span>
+          <span class="tech-pill tech-js">JavaScript</span>
+        </div>
+        <span class="work-arrow">↗</span>
+      </div>
     </a>
   </div>
 </section>
